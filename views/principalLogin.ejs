@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Principal Login</title>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-100">
+  <form action="/principal/login" method="POST" class="bg-white p-8 rounded shadow-md w-96">
+    <h2 class="text-2xl font-bold mb-6 text-center text-purple-700">Principal Login</h2>
+
+    <label class="block mb-2 text-sm font-medium">Username</label>
+    <input type="text" name="username" class="w-full border border-gray-300 p-2 mb-4 rounded" required>
+
+    <label class="block mb-2 text-sm font-medium">Password</label>
+    <input type="password" name="password" class="w-full border border-gray-300 p-2 mb-6 rounded" required>
+
+    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded font-semibold">Login</button>
+
+    <div class="mt-4 text-center">
+      <a href="/" class="text-sm text-blue-500 hover:underline">Back to Home</a>
+    </div>
+  </form>
+</body>
+</html>

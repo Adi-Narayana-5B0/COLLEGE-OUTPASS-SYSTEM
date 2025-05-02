@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <title>Student Outpass System - Digital Campus Solutions</title>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .hero-pattern {
+      background-color: #f9fafb;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234f46e5' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans flex flex-col min-h-screen">
+
+  <!-- Announcement Banner -->
+  <div class="bg-primary-700 text-white text-center text-sm py-2">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>🎉 New Feature: Now track your outpass requests from the mobile app! <a href="#"
+          class="underline font-medium">Learn more</a></p>
+    </div>
+  </div>
+
+  <!-- Header with responsive navigation -->
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <svg class="h-10 w-10 text-primary-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"
+              fill="currentColor" />
+          </svg>
+          <div class="ml-2">
+            <h1 class="text-xl font-bold text-primary-800">CampusPass</h1>
+            <p class="text-xs text-gray-500">Student Outpass System</p>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#features" class="text-gray-600 hover:text-primary-600 transition">Features</a>
+          <a href="#how-it-works" class="text-gray-600 hover:text-primary-600 transition">How It Works</a>
+          <a href="#testimonials" class="text-gray-600 hover:text-primary-600 transition">Testimonials</a>
+          <a href="#faq" class="text-gray-600 hover:text-primary-600 transition">FAQ</a>
+          <a href="#contact" class="text-gray-600 hover:text-primary-600 transition">Contact</a>
+        </div>
+
+        <div class="hidden md:flex items-center space-x-3">
+          <a href="/student/login" class="text-primary-600 hover:text-primary-800 font-medium">Student Login</a>
+          <a href="/hod/login" class="text-primary-600 hover:text-primary-800 font-medium">HOD Login</a>
+          <a href="/principal/login" class="text-primary-600 hover:text-primary-800 font-medium">Admin Login</a>
+          <a href="/student/register"
+            class="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-md font-medium transition">Register</a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <div class="md:hidden" x-data="{ open: false }">
+          <button @click="open = !open" class="text-gray-600 hover:text-primary-600 focus:outline-none">
+            <svg x-show="!open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg x-show="open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              style="display: none;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+          <!-- Mobile menu -->
+          <div x-show="open" class="absolute top-20 right-0 left-0 bg-white shadow-lg z-20" style="display: none;">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <a href="#features"
+                class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Features</a>
+              <a href="#how-it-works"
+                class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">How It
+                Works</a>
+              <a href="#testimonials"
+                class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Testimonials</a>
+              <a href="#faq"
+                class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">FAQ</a>
+              <a href="#contact"
+                class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Contact</a>
+              <a href="/student/login"
+                class="block px-3 py-2 text-primary-600 font-medium hover:bg-primary-50 rounded-md">Login</a>
+              <a href="/student/register"
+                class="block px-3 py-2 text-primary-600 font-medium hover:bg-primary-50 rounded-md">Register</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-pattern relative py-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="md:flex items-center">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4">
+            Campus Exits <span class="text-primary-600">Simplified</span>
+          </h2>
+          <p class="text-lg text-gray-600 mb-8 max-w-lg">
+            The modern solution for managing student outpass requests. Say goodbye to paperwork and hello to instant
+            digital approvals.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/student/register"
+              class="bg-primary-600 hover:bg-primary-700 text-white py-3 px-6 rounded-md font-medium shadow-md transition flex items-center">
+              <span>Get Started</span>
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+            <a href="#how-it-works"
+              class="bg-white hover:bg-gray-100 text-gray-800 py-3 px-6 rounded-md font-medium shadow-md transition flex items-center">
+              <span>How It Works</span>
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="mt-8 flex items-center text-gray-500 text-sm">
+            <div class="flex mr-4 items-center">
+              <svg class="w-4 h-4 text-primary-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Easy Setup</span>
+            </div>
+            <div class="flex mr-4 items-center">
+              <svg class="w-4 h-4 text-primary-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>24/7 Access</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-4 h-4 text-primary-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Secure Access</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="md:w-1/2 md:pl-10">
+          <div class="relative">
+            <div class="bg-white rounded-xl shadow-xl p-6 border border-gray-100">
+              <div class="flex justify-between items-center mb-6">
+                <h3 class="text-lg font-medium">Request New Outpass</h3>
+                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Quick Form</span>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Purpose of Visit</label>
+                  <select class="w-full p-2 border border-gray-300 rounded-md">
+                    <option>Personal</option>
+                    <option>Medical</option>
+                    <option>Family Event</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+                    <input type="date" class="w-full p-2 border border-gray-300 rounded-md">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Reason</label>
+                  <textarea class="w-full p-2 border border-gray-300 rounded-md" rows="2"></textarea>
+                </div>
+                <button
+                  class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 rounded-md font-medium transition">Submit
+                  Request</button>
+              </div>
+            </div>
+
+            <!-- Decorative elements -->
+            <div
+              class="absolute -bottom-4 -right-4 w-40 h-40 bg-gradient-to-br from-primary-400 to-primary-600 opacity-10 rounded-full">
+            </div>
+            <div
+              class="absolute -top-4 -left-4 w-20 h-20 bg-gradient-to-br from-primary-400 to-primary-600 opacity-10 rounded-full">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-10 bg-primary-700 text-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-3xl font-bold">10,000+</p>
+          <p class="text-primary-200">Students Registered</p>
+        </div>
+        <div>
+          <p class="text-3xl font-bold">50+</p>
+          <p class="text-primary-200">Institutions</p>
+        </div>
+        <div>
+          <p class="text-3xl font-bold">98%</p>
+          <p class="text-primary-200">Approval Rate</p>
+        </div>
+        <div>
+          <p class="text-3xl font-bold">5min</p>
+          <p class="text-primary-200">Average Response Time</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900">Powerful Features</h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Everything you need to manage campus exit requests
+          efficiently</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature Card 1 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-check-circle text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Quick Application</h3>
+          <p class="text-gray-600">Students can submit outpass requests in under 60 seconds with our streamlined form.
+          </p>
+        </div>
+
+        <!-- Feature Card 2 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-user-shield text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Role-Based Access</h3>
+          <p class="text-gray-600">Custom dashboards for Students, HODs, and Administrators with role-specific actions.
+          </p>
+        </div>
+
+        <!-- Feature Card 3 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-bell text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Real-Time Notifications</h3>
+          <p class="text-gray-600">Get instant updates on request status changes via email and in-app notifications.</p>
+        </div>
+
+        <!-- Feature Card 4 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-mobile-alt text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Mobile Access</h3>
+          <p class="text-gray-600">Submit and manage requests on the go with our fully responsive mobile interface.</p>
+        </div>
+
+        <!-- Feature Card 5 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-history text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Request History</h3>
+          <p class="text-gray-600">Complete history of all past requests and their statuses for better tracking.</p>
+        </div>
+
+        <!-- Feature Card 6 -->
+        <div class="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
+          <div class="bg-primary-100 text-primary-600 rounded-full w-12 h-12 flex items-center justify-center mb-4">
+            <i class="fas fa-chart-line text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Analytics Dashboard</h3>
+          <p class="text-gray-600">Comprehensive analytics for administrators to track patterns and improve processes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900">How It Works</h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">A simple three-step process from request to approval</p>
+      </div>
+
+      <div class="relative">
+        <!-- Process Steps -->
+        <div class="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-primary-200 -translate-y-1/2"></div>
+
+        <div class="grid md:grid-cols-3 gap-8 relative">
+          <!-- Step 1 -->
+          <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 relative z-10">
+            <div class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <span class="text-lg font-bold">1</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 text-center text-gray-900">Student Submits Request</h3>
+            <p class="text-gray-600 text-center">Students fill out a digital form with their purpose, dates, and reason
+              for the outpass.</p>
+            <div class="mt-4 flex justify-center">
+              <img src="/api/placeholder/320/160" alt="Step 1" class="rounded-lg shadow-sm" />
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 relative z-10">
+            <div class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <span class="text-lg font-bold">2</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 text-center text-gray-900">HOD Reviews & Approves</h3>
+            <p class="text-gray-600 text-center">Department heads are notified and can approve or reject with comments.
+            </p>
+            <div class="mt-4 flex justify-center">
+              <img src="/api/placeholder/320/160" alt="Step 2" class="rounded-lg shadow-sm" />
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 relative z-10">
+            <div class="bg-primary-600 text-white rounded-full w-12 h-12 flex items-center justify-center mb-4 mx-auto">
+              <span class="text-lg font-bold">3</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 text-center text-gray-900">Digital Pass Generated</h3>
+            <p class="text-gray-600 text-center">Approved students receive a digital pass that can be shown at campus
+              exits.</p>
+            <div class="mt-4 flex justify-center">
+              <img src="/api/placeholder/320/160" alt="Step 3" class="rounded-lg shadow-sm" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900">What Our Users Say</h2>
+        <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Trusted by students and faculty across campuses</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="flex items-center mb-4">
+            <div class="text-primary-500">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4">"This system has saved me so much time! I can request an outpass at night and
+            find it approved by morning. No more running around campus for signatures."</p>
+          <div class="flex items-center">
+            <img src="sai.jpg" alt="Student" class="w-10 h-10 rounded-full" />
+            <div class="ml-3">
+              <h4 class="font-medium text-gray-900">SAI</h4>
+              <p class="text-sm text-gray-500">Computer Science, 1st Year</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="flex items-center mb-4">
+            <div class="text-primary-500">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <!-- Continuation of the Testimonials section -->
+          <p class="text-gray-600 mb-4">"As a department head, this system has streamlined our approval process. I can
+            review requests from anywhere, even when I'm at conferences. The notification system is excellent."</p>
+          <div class="flex items-center">
+            <img src="/api/placeholder/40/40" alt="Professor" class="w-10 h-10 rounded-full" />
+            <div class="ml-3">
+              <h4 class="font-medium text-gray-900">Dhamudhar</h4>
+              <p class="text-sm text-gray-500">HOD, HBS Department</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+          <div class="flex items-center mb-4">
+            <div class="text-primary-500">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <p class="text-gray-600 mb-4">"The digital passes have improved our security process. We can verify student
+            permissions instantly and maintain better records of who's leaving campus."</p>
+          <div class="flex items-center">
+            <img src="/api/placeholder/40/40" alt="Security" class="w-10 h-10 rounded-full" />
+            <div class="ml-3">
+              <h4 class="font-medium text-gray-900">Prasad</h4>
+              <p class="text-sm text-gray-500">Campus Security Officer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq" class="py-20 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900">Frequently Asked Questions</h2>
+        <p class="mt-4 text-lg text-gray-600">Get answers to common questions about CampusPass</p>
+      </div>
+
+      <div class="space-y-6" x-data="{selected:0}">
+        <!-- FAQ Item 1 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left"
+            @click="selected !== 0 ? selected = 0 : selected = null">
+            <span class="text-lg font-medium text-gray-900">How long does it take to get an approval?</span>
+            <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              :class="{'rotate-180': selected == 0}">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="px-6 pb-4" x-show="selected == 0" style="display: none;">
+            <p class="text-gray-600">Most requests are processed within 2-5 hours during working days. Urgent requests
+              can be marked as such and are typically reviewed within 30 minutes to 1 hour.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left"
+            @click="selected !== 1 ? selected = 1 : selected = null">
+            <span class="text-lg font-medium text-gray-900">What happens if my request is rejected?</span>
+            <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              :class="{'rotate-180': selected == 1}">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="px-6 pb-4" x-show="selected == 1" style="display: none;">
+            <p class="text-gray-600">If your request is rejected, you'll receive a notification with the reason. You can
+              modify and resubmit your request based on the feedback or contact your HOD directly for special
+              circumstances.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left"
+            @click="selected !== 2 ? selected = 2 : selected = null">
+            <span class="text-lg font-medium text-gray-900">Can I extend my outpass duration?</span>
+            <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              :class="{'rotate-180': selected == 2}">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="px-6 pb-4" x-show="selected == 2" style="display: none;">
+            <p class="text-gray-600">Yes, you can request an extension through the app. Go to your active outpass and
+              select the "Request Extension" option. Your HOD will need to approve this extension before it becomes
+              valid.</p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100">
+          <button class="flex justify-between items-center w-full px-6 py-4 text-left"
+            @click="selected !== 3 ? selected = 3 : selected = null">
+            <span class="text-lg font-medium text-gray-900">Is the digital pass accepted at all campus gates?</span>
+            <svg class="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              :class="{'rotate-180': selected == 3}">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div class="px-6 pb-4" x-show="selected == 3" style="display: none;">
+            <p class="text-gray-600">Yes, all campus security personnel have access to verify digital passes. Simply
+              show the QR code on your phone at any gate. For backup, we recommend keeping a screenshot of your approved
+              pass.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary-700 text-white">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to Simplify Campus Exits?</h2>
+      <p class="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">Join thousands of students who have made campus exits
+        hassle-free with CampusPass.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/student/register"
+          class="bg-white text-primary-700 hover:bg-gray-100 py-3 px-8 rounded-md font-medium transition">
+          Create Free Account
+        </a>
+        <a href="#contact"
+          class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-primary-700 py-3 px-8 rounded-md font-medium transition">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <h2 class="text-3xl font-bold text-gray-900 mb-6">Get In Touch</h2>
+          <p class="text-lg text-gray-600 mb-8">Have questions or need assistance? Our team is here to help you
+            implement CampusPass at your institution.</p>
+
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div
+                class="bg-primary-100 text-primary-600 rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900">Email Us</h3>
+                <p class="text-gray-600">pydahedu@gmail.com</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div
+                class="bg-primary-100 text-primary-600 rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900">Call Us</h3>
+                <p class="text-gray-600">+91 7659025051</p>
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <div
+                class="bg-primary-100 text-primary-600 rounded-full w-10 h-10 flex items-center justify-center flex-shrink-0 mt-1">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="text-lg font-medium text-gray-900">Visit Us</h3>
+                <p class="text-gray-600">engineering campus<br>patavala, kakinada - 560001</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 class="text-xl font-semibold mb-4 text-gray-900">Send us a message</h3>
+            <form>
+              <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-md">
+                  </div>
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                    <input type="text" class="w-full p-3 border border-gray-300 rounded-md">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input type="email" class="w-full p-3 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Institution</label>
+                  <input type="text" class="w-full p-3 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <textarea rows="4" class="w-full p-3 border border-gray-300 rounded-md"></textarea>
+                </div>
+                <button type="submit"
+                  class="w-full bg-primary-600 hover:bg-primary-700 text-white py-3 px-4 rounded-md font-medium transition">
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-300 py-12">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid md:grid-cols-4 gap-8 mb-8">
+        <!-- Column 1 -->
+        <div>
+          <div class="flex items-center mb-4">
+            <svg class="h-8 w-8 text-primary-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z"
+                fill="currentColor" />
+            </svg>
+            <div class="ml-2">
+              <h2 class="text-lg font-bold text-white">CampusPass</h2>
+              <p class="text-xs text-gray-400">Student Outpass System</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-400 mb-4">Simplifying campus exit procedures for educational institutions across
+            India.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div>
+          <h3 class="text-white font-medium mb-4">Product</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#features" class="text-gray-400 hover:text-white transition">Features</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Pricing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Integrations</a></li>
+            <li><a href="#faq" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3 -->
+        <div>
+          <h3 class="text-white font-medium mb-4">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Support Center</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">API Access</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4 -->
+        <div>
+          <h3 class="text-white font-medium mb-4">Company</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#" class="text-gray-400 hover:text-white transition">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-gray-700 text-sm text-center">
+        <p>© 2025 Digital Campus Solutions. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

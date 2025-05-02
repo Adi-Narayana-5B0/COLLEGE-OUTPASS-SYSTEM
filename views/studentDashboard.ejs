@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.3/cdn.min.js" defer></script>
+  <title>CampusPass - Student Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+        },
+      },
+    }
+
+    function toggleForm() {
+      const form = document.getElementById("outpassForm");
+      form.classList.toggle("hidden");
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    .dashboard-pattern {
+      background-color: #f9fafb;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5z' fill='%234f46e5' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+  </style>
+</head>
+<body class="dashboard-pattern font-sans min-h-screen">
+  <!-- Top announcement banner -->
+  <div class="bg-primary-700 text-white text-center text-sm py-2">
+    <div class="max-w-7xl mx-auto px-4">
+      <p>🎉 New Feature: You can now track your outpass status in real-time! <a href="#" class="underline font-medium">Learn more</a></p>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <svg class="h-10 w-10 text-primary-600" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" fill="currentColor" />
+          </svg>
+          <div class="ml-2">
+            <h1 class="text-xl font-bold text-primary-800">CampusPass</h1>
+            <p class="text-xs text-gray-500">Student Dashboard</p>
+          </div>
+        </div>
+        
+        <!-- Dashboard Navigation -->
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="#" class="text-gray-600 hover:text-primary-600 transition">Dashboard</a>
+          <a href="#" class="text-gray-600 hover:text-primary-600 transition">History</a>
+          <a href="#" class="text-gray-600 hover:text-primary-600 transition">Profile</a>
+          <a href="#" class="text-gray-600 hover:text-primary-600 transition">Help</a>
+          <a href="/" class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-md transition"><i class="fas fa-sign-out-alt mr-2"></i>
+            <span>Logout</span></a>
+        </div>
+        
+        <!-- Mobile menu button -->
+        <div class="md:hidden flex items-center">
+          <div x-data="{ open: false }">
+            <button @click="open = !open" class="text-gray-600 hover:text-primary-600 focus:outline-none">
+              <svg x-show="!open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+              <svg x-show="open" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+            
+            <!-- Mobile menu -->
+            <div x-show="open" class="absolute top-16 right-0 left-0 bg-white shadow-lg z-20" style="display: none;">
+              <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Dashboard</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">History</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Profile</a>
+                <a href="#" class="block px-3 py-2 text-gray-600 hover:bg-primary-50 hover:text-primary-600 rounded-md">Help</a>
+                <a href="/" class="block px-3 py-2 text-primary-600 font-medium hover:bg-primary-50 rounded-md">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12">
+    <!-- Header & Student Info -->
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8 border-l-4 border-primary-500">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <div>
+          <div class="flex items-center mb-4">
+            <div class="bg-primary-100 p-3 rounded-full mr-4">
+              <i class="fas fa-user text-primary-600 text-xl"></i>
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold mb-1">Welcome, <%= student.name %>!</h1>
+              <div class="flex flex-wrap gap-6 text-gray-700">
+                <p class="flex items-center"><i class="fas fa-id-card text-primary-500 mr-2"></i><strong>Roll:</strong> <%= student.rollNumber %></p>
+                <p class="flex items-center"><i class="fas fa-graduation-cap text-primary-500 mr-2"></i><strong>Branch:</strong> <%= student.branch %></p>
+                <p class="flex items-center"><i class="fas fa-calendar-alt text-primary-500 mr-2"></i><strong>Year:</strong> <%= student.year %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Summary Cards
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-4 border-b-4 border-green-500">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-500 text-sm">Approved</p>
+            <p class="text-2xl font-bold">3</p>
+          </div>
+          <div class="bg-green-100 p-3 rounded-full">
+            <i class="fas fa-check text-green-500"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-4 border-b-4 border-red-500">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-500 text-sm">Rejected</p>
+            <p class="text-2xl font-bold">1</p>
+          </div>
+          <div class="bg-red-100 p-3 rounded-full">
+            <i class="fas fa-times text-red-500"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-4 border-b-4 border-blue-500">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-500 text-sm">Forwarded</p>
+            <p class="text-2xl font-bold">2</p>
+          </div>
+          <div class="bg-blue-100 p-3 rounded-full">
+            <i class="fas fa-arrow-right text-blue-500"></i>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-lg shadow-md p-4 border-b-4 border-yellow-500">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-gray-500 text-sm">Pending</p>
+            <p class="text-2xl font-bold">1</p>
+          </div>
+          <div class="bg-yellow-100 p-3 rounded-full">
+            <i class="fas fa-clock text-yellow-500"></i>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Apply Outpass Button -->
+    <div class="text-center mb-8">
+      <button onclick="toggleForm()" class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-md shadow-md transition duration-300 flex items-center justify-center mx-auto">
+        <i class="fas fa-plus-circle mr-2"></i> Apply for New Outpass
+      </button>
+    </div>
+
+    <!-- Outpass Request Form -->
+    <form id="outpassForm" action="/student/request" method="POST"
+    class="hidden bg-white p-6 rounded-lg shadow-md mb-8 w-full max-w-xl mx-auto transition duration-300 border border-gray-200">
+
+      <input type="hidden" name="rollNumber" value="<%= student.rollNumber %>">
+      <input type="hidden" name="name" value="<%= student.name %>">
+
+      <div class="flex items-center mb-6">
+        <div class="bg-primary-100 p-2 rounded-full mr-3">
+          <i class="fas fa-file-alt text-primary-600"></i>
+        </div>
+        <h2 class="text-xl font-semibold">Outpass Request</h2>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-2 font-medium text-gray-700">Reason for Leave</label>
+        <input type="text" name="reason" placeholder="e.g. Family function, Medical appointment" class="w-full border border-gray-300 p-3 rounded-md focus:ring focus:ring-primary-200 focus:border-primary-500 outline-none transition" required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block mb-2 font-medium text-gray-700">Date</label>
+        <input type="date" name="date" class="w-full border border-gray-300 p-3 rounded-md focus:ring focus:ring-primary-200 focus:border-primary-500 outline-none transition" required>
+      </div>
+
+      <div class="mb-6">
+        <label class="block mb-2 font-medium text-gray-700">Time</label>
+        <input type="time" name="time" class="w-full border border-gray-300 p-3 rounded-md focus:ring focus:ring-primary-200 focus:border-primary-500 outline-none transition" required>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button type="submit" class="bg-primary-500 hover:bg-primary-600 text-white py-3 px-6 rounded-md font-medium transition flex-grow flex justify-center items-center">
+          <i class="fas fa-paper-plane mr-2"></i> Submit Request
+        </button>
+        <button type="button" onclick="toggleForm()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-6 rounded-md font-medium transition">
+          Cancel
+        </button>
+      </div>
+    </form>
+
+    <!-- Requests Display -->
+    <div>
+      <div class="flex items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Your Recent Requests</h2>
+        <div class="ml-auto">
+          <select class="border border-gray-300 rounded-md p-2 text-sm focus:ring focus:ring-primary-200 focus:border-primary-500 outline-none">
+            <option>All Requests</option>
+            <option>Approved</option>
+            <option>Rejected</option>
+            <option>Pending</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <% requests.forEach(request => { %>
+          <div class="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition duration-300 border-t border-r border-b border-gray-200
+            <% if (request.status === 'Principal Approved') { %> border-l-4 border-l-green-500
+            <% } else if (request.status === 'Principal Rejected' || request.status === 'Rejected') { %> border-l-4 border-l-red-500
+            <% } else if (request.status === 'Forwarded') { %> border-l-4 border-l-blue-500
+            <% } else { %> border-l-4 border-l-yellow-500 <% } %>">
+
+            <div class="p-5">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <p class="text-lg font-semibold text-gray-800"><%= request.reason %></p>
+                  <p class="text-gray-500 text-sm"><%= request.date %> | <%= request.time %></p>
+                </div>
+                
+                <div>
+                  <% if (request.status === 'Principal Approved') { %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      <i class="fas fa-check-circle mr-1"></i> Approved
+                    </span>
+                  <% } else if (request.status === 'Principal Rejected') { %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      <i class="fas fa-times-circle mr-1"></i> Rejected
+                    </span>
+                  <% } else if (request.status === 'Forwarded') { %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      <i class="fas fa-arrow-circle-right mr-1"></i> Forwarded
+                    </span>
+                  <% } else if (request.status === 'Rejected') { %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                      <i class="fas fa-times-circle mr-1"></i> Rejected
+                    </span>
+                  <% } else { %>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                      <i class="fas fa-clock mr-1"></i> Pending
+                    </span>
+                  <% } %>
+                </div>
+              </div>
+              
+              <div class="border-t border-gray-100 pt-4">
+                <div class="flex justify-between items-center">
+                  <div>
+                    <% if (request.status === 'Principal Approved') { %>
+                      <p class="text-sm text-green-600 font-medium">Approved by Principal</p>
+                    <% } else if (request.status === 'Principal Rejected') { %>
+                      <p class="text-sm text-red-600 font-medium">Rejected by Principal</p>
+                    <% } else if (request.status === 'Forwarded') { %>
+                      <p class="text-sm text-blue-600 font-medium">Forwarded to Principal</p>
+                    <% } else if (request.status === 'Rejected') { %>
+                      <p class="text-sm text-red-600 font-medium">Rejected by HOD</p>
+                    <% } else { %>
+                      <p class="text-sm text-yellow-600 font-medium">Awaiting HOD Approval</p>
+                    <% } %>
+                  </div>
+                  <div>
+                    <% if (request.status === 'Principal Approved') { %>
+                      <button class="text-primary-600 hover:text-primary-800 text-sm font-medium">
+                        <i class="fas fa-download mr-1"></i> Download
+                      </button>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="flex items-center mb-4 md:mb-0">
+          <svg class="h-8 w-8 text-primary-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 5C13.66 5 15 6.34 15 8C15 9.66 13.66 11 12 11C10.34 11 9 9.66 9 8C9 6.34 10.34 5 12 5ZM12 19.2C9.5 19.2 7.29 17.92 6 15.98C6.03 13.99 10 12.9 12 12.9C13.99 12.9 17.97 13.99 18 15.98C16.71 17.92 14.5 19.2 12 19.2Z" fill="currentColor" />
+          </svg>
+          <div class="ml-2">
+            <h2 class="text-lg font-bold">CampusPass</h2>
+            <p class="text-xs text-gray-400">Student Outpass System</p>
+          </div>
+        </div>
+        <div class="text-center md:text-right text-sm text-gray-400">
+          <p>© 2025 Digital Campus Solutions. All rights reserved.</p>
+          <p class="mt-1">Version 2.5.0</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
