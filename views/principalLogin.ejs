@@ -2,23 +2,48 @@
 <html lang="en">
 <head>
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Principal Login</title>
+  <title>Principal Portal | Login</title>
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
-  <form action="/principal/login" method="POST" class="bg-white p-8 rounded shadow-md w-96">
-    <h2 class="text-2xl font-bold mb-6 text-center text-purple-700">Principal Login</h2>
-
-    <label class="block mb-2 text-sm font-medium">Username</label>
-    <input type="text" name="username" class="w-full border border-gray-300 p-2 mb-4 rounded" required>
-
-    <label class="block mb-2 text-sm font-medium">Password</label>
-    <input type="password" name="password" class="w-full border border-gray-300 p-2 mb-6 rounded" required>
-
-    <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white w-full py-2 rounded font-semibold">Login</button>
-
-    <div class="mt-4 text-center">
-      <a href="/" class="text-sm text-blue-500 hover:underline">Back to Home</a>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+  <div class="w-full max-w-md px-6 py-8">
+    <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+      <div class="px-8 py-6 bg-blue-600">
+        <h2 class="text-xl font-bold text-white">Principal Portal Login</h2>
+        <p class="text-blue-100 text-sm mt-1">Please enter your credentials to access the system</p>
+      </div>
+      
+      <form action="/principal/login" method="POST" class="px-8 py-6">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-medium mb-2" for="username">Username</label>
+          <input id="username" type="text" name="username" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-medium mb-2" for="password">Password</label>
+          <input id="password" type="password" name="password" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition" required>
+          <div class="flex justify-end mt-1">
+            <a href="#" class="text-xs text-blue-600 hover:text-blue-800">Forgot password?</a>
+          </div>
+        </div>
+        
+        <div>
+          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition duration-200 ease-in-out shadow-md hover:shadow-lg">
+            Sign In
+          </button>
+        </div>
+      </form>
+      
+      <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 flex justify-between items-center">
+        <a href="/" class="text-sm text-gray-600 hover:text-blue-600 transition">
+          ← Back to Home
+        </a>
+        <span class="text-xs text-gray-500">© 2025 School District</span>
+      </div>
     </div>
-  </form>
+    
+    <div class="mt-6 text-center text-sm text-gray-600">
+      Need technical support? <a href="#" class="text-blue-600 hover:underline">Contact IT Department</a>
+    </div>
+  </div>
 </body>
 </html>
